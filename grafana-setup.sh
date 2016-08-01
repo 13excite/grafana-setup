@@ -8,9 +8,16 @@ iptables -I INPUT -p tcp --dport 81 -j ACCEPT
 service iptables save
 
 #install need packeges
-yum install -y python-devel mod_wsgi pycairo dejavu-sans-fonts gcc git pytz python-memcached nc 
+yum install -y python-devel mod_wsgi pycairo dejavu-sans-fonts gcc git pytz python-memcached nc
+yum install pycairo Django14 python-ldap python-memcached bitmap bitmap-fonts-compat python-devel \
+python-crypto pyOpenSSL gcc python-zope-filesystem git gcc-c++ zlib-static MySQL-python python-setuptools \
+python-psycopg2
+
 pip install pyparsing
 pip install 'Twisted<12.0'
+pip install django-tagging
+pip install txamqp
+
 
 cd /tmp
 #########################################
@@ -27,7 +34,7 @@ cd whisper; git checkout 0.9.13-pre1; python setup.py install
 cd ../carbon; git checkout 0.9.13-pre1; python setup.py install
 cd ../graphite-web; python check-dependencies.py; git checkout 0.9.13-pre1; python setup.py install
 #########################################################
-#install graphite-api via pip (remove # char)
+#install graphite-api via pip (remove # char) this is example config(maybe will be configure parametrs)
 ############################################
 #pip install graphite-api
 #cat > /etc/graphite-api.yaml << "EOF"
@@ -89,7 +96,7 @@ EOF
 #cat >//etc/uwsgi.d/graphite-api.ini<< "EOF"
 #[uwsgi]
 #processes = 1
-#socket = localhost:3035
+#socket = localhost:3035  
 #plugins = python
 #pythonpath=/usr/share/graphite_api
 #module = graphite_api.app:app
